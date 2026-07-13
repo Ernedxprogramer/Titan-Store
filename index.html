@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, noimageindex, noarchive" />
+  <meta name="googlebot" content="noindex, noimageindex" />
+  <meta name="referrer" content="no-referrer" />
+  <title>Tienda de Productos</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div>
+        <div class="brand-row">
+          <img class="brand-logo" src="img/logo.jpg" alt="Logo de Titan Store" />
+          <a class="brand gold-accent gold-text" href="#home">Titan Store</a>
+        </div>
+        <p class="tagline">Productos pensados para tu día a día</p>
+      </div>
+      <nav>
+        <a href="#productos">Productos</a>
+        <a href="https://ernedxprogramer.github.io/ofertas/" target="_blank" rel="noopener noreferrer">Ofertas y promociones</a>
+        <a href="https://wa.me/17023050730" target="_blank" rel="noopener noreferrer">Atención al cliente</a>
+      </nav>
+      <div class="header-actions">
+        <button class="cart-button gold-border" id="cartButton" aria-label="Abrir carrito">
+          <span class="cart-button-icon" aria-hidden="true">🛒</span>
+          <span class="cart-button-text">Carrito</span>
+          <span class="cart-button-count" id="cartCount">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div id="topCartPanel" class="cart-panel collapsed" aria-hidden="true">
+    <div class="cart-panel-header">
+      <h3>Carrito</h3>
+      <button id="closeCartPanel" aria-label="Cerrar carrito">✕</button>
+    </div>
+    <div id="topCartItems" class="cart-items-panel">
+      <p class="empty-cart">El carrito está vacío.</p>
+    </div>
+    <div class="cart-panel-footer">
+      <span>Total:</span>
+      <strong id="topCartTotal">$0.00</strong>
+    </div>
+    <div class="cart-panel-actions">
+      <button class="button gold-button small-button" id="openOrderTab">Hacer pedido</button>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="buyModal" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="buyModalTitle">
+      <button class="modal-close" id="closeModalBtn" type="button" aria-label="Cerrar">×</button>
+      <h2 id="buyModalTitle">Completa tu pedido</h2>
+      <p class="modal-subtitle">Enviaremos tus datos directamente a WhatsApp para coordinar el envío.</p>
+      <form id="buyForm" class="buy-form">
+        <label>
+          Nombre completo
+          <input type="text" name="nombre" placeholder="Tu nombre" required />
+        </label>
+        <label>
+          Teléfono de referencia para entrega
+          <input type="tel" name="telefono" placeholder="+1 702 305 0730" required />
+        </label>
+        <label>
+          Dirección de entrega
+          <textarea name="direccion" rows="3" placeholder="Ciudad, estado, calle y número" required></textarea>
+        </label>
+
+        <div class="distance-estimate" aria-live="polite">
+          <p class="distance-estimate-line" id="distanceLine">Distancia estimada: —</p>
+          <p class="distance-estimate-line" id="distanceCostLine">Costo estimado (5 USD/km): —</p>
+          <p class="distance-estimate-note" id="distanceNote">Se calculará automáticamente cuando elijas Express.</p>
+        </div>
+
+        <label>
+          Punto de referencia
+          <input type="text" name="referencia" placeholder="Ej. Cerca del parque central" required />
+        </label>
+
+
+        <fieldset class="shipping-options">
+          <legend>Tipo de envío</legend>
+          <label class="shipping-option shipping-option--maritimo">
+            <input type="radio" name="envio" value="Marítimo" checked />
+            <span>Marítimo</span>
+            <small>( $1.99 por libra ) su artículo se entregará entre 30 - 40 días</small>
+          </label>
+          <label class="shipping-option shipping-option--aereo">
+            <input type="radio" name="envio" value="Aéreo" />
+            <span>Aéreo</span>
+            <small>( $2.99 por libra ) su artículo se entregará entre 20 - 35 días</small>
+          </label>
+          <label class="shipping-option shipping-option--express">
+            <input type="radio" name="envio" value="Express" />
+            <span>Express</span>
+            <small>Su artículo se entregará en menos de 5 días</small>
+          </label>
+        </fieldset>
+
+        <button class="button primary" type="submit">Enviar pedido</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-overlay product-modal-overlay" id="productDetailModal" aria-hidden="true">
+    <div class="modal product-detail-modal" role="dialog" aria-modal="true" aria-labelledby="productDetailTitle">
+      <button class="modal-close product-modal-close" id="closeProductDetailBtn" type="button" aria-label="Cerrar">×</button>
+      <div id="productDetailContent" class="product-detail-content"></div>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-content">
+        <div>
+          <h1>La tienda online ideal para tus compras rápidas</h1>
+          <p>Encuentra productos de calidad, ofertas claras y un carrito fácil de usar. Compra en línea con confianza y recibe todo en tu casa.</p>
+          <a class="button gold-button" href="#productos">Ver productos</a>
+        </div>
+<img class="hero-visual" src="img/logo grande.jpg" alt="Productos" loading="lazy" referrerpolicy="no-referrer" />
+      </div>
+    </section>
+
+    <section class="catalogue container" id="productos">
+
+
+      <div class="section-header">
+        <div>
+          <h2>Catálogo de productos</h2>
+          <p>Explora nuestros productos destacados y agrega los que quieras al carrito.</p>
+        </div>
+        <input id="searchInput" type="search" placeholder="Buscar productos..." />
+      </div>
+
+      <div id="productGrid" class="product-grid"></div>
+    </section>
+
+    <section class="checkout container" id="contacto">
+      <div class="shipping-services">
+        <h3>Opciones de envío</h3>
+        <div class="shipping-service">
+          <h4>Marítimo</h4>
+          <p>Entrega estándar por vía marítima en 30 a 40 días. Tarifa: $1,99 por libra.</p>
+        </div>
+        <div class="shipping-service">
+          <h4>Aéreo</h4>
+          <p>Transporte aéreo con tiempo estimado de 20 a 35 días. Tarifa: $2,99 por libra.</p>
+        </div>
+        <div class="shipping-service">
+          <h4>Express</h4>
+          <p>Entrega prioritaria en menos de 5 días. Tarifa de envío gratuita dentro del municipio Las Tunas; el cargo de domicilio se aplica según la zona fuera del municipio Tunas.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <p class="footer-copy">© 2026 TiendaPlus. Todos los derechos reservados.</p>
+        </div>
+
+        <div class="footer-social" aria-label="Redes sociales">
+          <h3>Redes sociales</h3>
+          <div class="social-links">
+            <a class="social-link" href="https://www.instagram.com/titanstore.online?igsh=MTYxMHRsOTBnc2x2dA==" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a class="social-link" href="https://www.facebook.com/profile.php?id=61590836436560" target="_blank" rel="noopener noreferrer">Facebook</a>
+            <a class="social-link" href="https://www.tiktok.com/@yeyli.estrada" target="_blank" rel="noopener noreferrer">TikTok</a>
+            <a class="social-link" href="https://x.com" target="_blank" rel="noopener noreferrer">X</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <script src="script.js"></script>
+</body>
+</html>
